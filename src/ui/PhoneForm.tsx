@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import { PhoneControl } from './PhoneControl.tsx';
 import { GenderControl } from './GenderControl.tsx';
@@ -13,10 +13,18 @@ interface PhoneFormProps {
 }
 
 export const PhoneForm = ({ formSubmit }: PhoneFormProps) => {
-    const [formData, setFormData] = useState<PhoneFormData>({ phoneNumber: '', gender: 'Male' })
+    const [formData, setFormData] = useState<PhoneFormData>({ phoneNumber: '+38 (0__) - ___ - __ - __', gender: 'Male' })
 
-    const setPhoneNumber = (phoneNumber: string) => setFormData({ ...formData, phoneNumber });
+    const [isFormValid, setIsFormValid] = useState(false);
+
+    const setPhoneNumber = (phoneNumber: string) => {
+        checkPhoneFormValidity(phoneNumber);
+        setFormData({ ...formData, phoneNumber });
+    }
+
     const setGender = (gender: 'Male' | 'Female') => setFormData({ ...formData, gender });
+
+    const checkPhoneFormValidity = (phoneNumber: string) => setIsFormValid(/^\d$/.test(phoneNumber.charAt(phoneNumber.length - 1)));
 
     const handleFormSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -32,7 +40,7 @@ export const PhoneForm = ({ formSubmit }: PhoneFormProps) => {
                 <GenderControl onChange={ setGender } value={ formData.gender }></GenderControl>
             </div>
 
-            <button className="btn btn-primary" type='button' onClick={ handleFormSubmit }>Submit</button>
+            <button className="btn btn-primary" type='button' onClick={ handleFormSubmit } disabled={ !isFormValid }>Submit</button>
         </form>
     );
 }
