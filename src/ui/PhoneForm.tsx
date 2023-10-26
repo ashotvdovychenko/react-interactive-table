@@ -13,7 +13,7 @@ interface PhoneFormProps {
 }
 
 export const PhoneForm = ({ formSubmit }: PhoneFormProps) => {
-    const [formData, setFormData] = useState<PhoneFormData>({ phoneNumber: '', gender: 'Male' })
+    const [formData, setFormData] = useState<PhoneFormData>({ phoneNumber: '+38 (0__) - ___ - __ - __', gender: 'Male' })
 
     const setPhoneNumber = (phoneNumber: string) => setFormData({ ...formData, phoneNumber });
     const setGender = (gender: 'Male' | 'Female') => setFormData({ ...formData, gender });
