@@ -1,5 +1,5 @@
 import { ControlProps } from '@shared/control/models';
-import {usePhoneMaskControl} from "@shared/control/hooks/usePhoneMaskControl.ts";
+import { usePhoneMaskControl } from "@shared/control/hooks";
 
 export const PhoneControl = ({ onChange, value }: ControlProps<string>) => {
     const handleKeyDown = usePhoneMaskControl(value, onChange);
