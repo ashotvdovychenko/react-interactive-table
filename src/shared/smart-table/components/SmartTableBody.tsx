@@ -1,4 +1,4 @@
-import { ReactComponentElement, useMemo } from 'react';
+import React, { ReactComponentElement, useMemo } from 'react';
 
 import { ColDef, UniqueObject } from '../models';
 import { useTableSelection } from '../hooks';
@@ -6,11 +6,12 @@ import { SmartTableColumn } from './SmartTableColumn.tsx';
 
 interface TableProps<CollectionType> {
     rowData: CollectionType[];
+    setSelectedRows: React.Dispatch<Map<number, CollectionType>>
     children: ReactComponentElement<typeof SmartTableColumn, ColDef<CollectionType>>[];
 }
 
-export const SmartTableBody = <CollectionType extends UniqueObject>({ rowData, children }: TableProps<CollectionType>) => {
-    const [ changeRowSelectionState, changeTableSelectionState ] = useTableSelection(rowData);
+export const SmartTableBody = <CollectionType extends UniqueObject>({ rowData, children, setSelectedRows }: TableProps<CollectionType>) => {
+    const [ changeRowSelectionState ] = useTableSelection(rowData, setSelectedRows);
 
     const colDefs: ColDef<CollectionType>[] = children.map((child: ReactComponentElement<typeof SmartTableColumn, ColDef<CollectionType>>) => child.props)
 
@@ -34,7 +35,6 @@ export const SmartTableBody = <CollectionType extends UniqueObject>({ rowData, c
             <thead>
                 <tr>
                     <th>
-                        <input className="form-check-input" type="checkbox" onClick={ () => changeTableSelectionState() }/>
                     </th>
                     { headerColumns }
                 </tr>
