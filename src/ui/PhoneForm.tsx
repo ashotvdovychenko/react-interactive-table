@@ -33,6 +33,7 @@ export const PhoneForm = ({ formSubmit, formDelete, formDuplicate, selectedRows}
     const handleFormSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         formSubmit(formData);
+        setFormData({ phoneNumber: '+38 (0__) - ___ - __ - __', gender: 'Male' });
     }
 
     const handleFormDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
